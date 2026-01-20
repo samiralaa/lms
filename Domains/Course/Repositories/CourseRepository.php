@@ -8,12 +8,12 @@ class CourseRepository
 {
     public function getAllCourses()
     {
-        return Course::with('images')->paginate(10);
+        return Course::with('images','instructor')->paginate(10);
     }
 
     public function getCourseById($id)
     {
-        return Course::with('images')->findOrFail($id);
+        return Course::with('images','')->findOrFail($id);
     }
 
     public function createCourse(array $data)

@@ -1,4 +1,5 @@
 <?php
+
 namespace Domains\Course\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -14,12 +15,16 @@ class CourseRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'course_name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'instructor_id' => 'required|exists:users,id',
-            'price' => 'required|numeric|min:0',
-            'status' => ['required', Rule::in(['draft', 'published', 'archived'])],
-            'image' => 'nullable|image|max:2048' // Max 2MB
+            'type' => 'required|in:Online,Offline',
+            'status' => 'required|in:Active,Inactive',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'duration' => 'nullable|string',
+            'price' => 'nullable|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

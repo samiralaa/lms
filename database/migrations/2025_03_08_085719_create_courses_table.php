@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('course_name'); // Required, max 255
             $table->text('description')->nullable();
-            $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('price', 10, 2)->default(0);
-            $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
+            $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade'); // Required, must exist in users table
+            $table->enum('type', ['Online', 'Offline']); // Required, options: Online/Offline
+            $table->enum('status', ['Active', 'Inactive']); // Required, options: Active/Inactive
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('duration')->nullable();
+            $table->decimal('price', 10, 2)->nullable(); // Numeric, optional
             $table->timestamps();
         });
     }

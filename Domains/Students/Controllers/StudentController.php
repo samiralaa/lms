@@ -18,6 +18,7 @@ class StudentController
 
     public function register(StudentRegisterRequest $request)
     {
+        dd('Student');
         $student = $this->studentService->registerStudent($request->validated());
         return response()->json(['message' => 'Student registered successfully', 'student' => $student], 201);
     }

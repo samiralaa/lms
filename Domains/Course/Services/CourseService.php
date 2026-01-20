@@ -28,14 +28,6 @@ public function getAllCourse()
     public function createCourse($data)
     {
         $course = $this->coursetRepo->createCourse($data);
-
-        // Handle image upload if provided
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
-
-            $imagePath = $data['image']->store('courses', 'public'); // Store image in "storage/app/public/courses"
-            $course->images()->create(['url' => $imagePath]);
-        }
-
         return $course;
     }
 
